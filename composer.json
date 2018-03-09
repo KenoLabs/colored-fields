@@ -9,5 +9,16 @@
     ],
     "require": {
         "php": "^7.1"
+    },
+    "extra": {
+        "treoId": "ColoredFields",
+        "name": {
+            "default": "Enum and MultiEnum with colors",
+            "de_DE": "Farbiges Auswahl- und Mehrfachauswahlfeld"
+        },
+        "description": {
+            "default": "Module add new colored field type for TreoCRM",
+            "de_DE": "Das Modul fügt farbige Auswahl- und Mehrfachauswahlfelder ein und ist für Entity-Stati gut geeignet. Jeder Status ist dann anderer Farbe."
+        }
     }
 }
