@@ -25,10 +25,12 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
 
         detailTemplate: 'colored-fields:fields/colored-multi-enum/detail',
 
+        defaultBackgroundColor: 'ccc',
+
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
-            if (this.mode == 'edit') {
+            if (this.mode === 'edit') {
                 this.setColors();
                 this.$element.on('change', this.setColors.bind(this));
             }
@@ -39,7 +41,11 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             let values = value.split(':,:');
             if (values.length) {
                 let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
-                values.forEach(item => this.$el.find(`[data-value='${item}']`).css({ 'background': `#${optionColors[item]}`, 'color': '#fff'}));
+                values.forEach(item => {
+                    let backgroundColor = optionColors[item] || this.defaultBackgroundColor;
+                    let color = this.getFontColor(backgroundColor);
+                    this.$el.find(`[data-value='${item}']`).css({ 'background': `#${backgroundColor}`, 'color': `#${color}`});
+                });
             }
         },
 
@@ -47,13 +53,30 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             let data = Dep.prototype.data.call(this);
             let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
             data.selectedValues = (data.selected || []).map(item => {
+                let backgroundColor = optionColors[item] || this.defaultBackgroundColor;
                 return {
-                    color: optionColors[item],
+                    backgroundColor: backgroundColor,
+                    color: this.getFontColor(backgroundColor),
                     value: item
                 };
             });
-            data.color = (this.model.getFieldParam(this.name, 'optionColors') || {})[data.value];
+            data.backgroundColor = this.getBackgroundColor(data.value);
+            data.color = this.getFontColor(data.backgroundColor);
             return data;
+        },
+
+        getBackgroundColor(fieldValue) {
+            return (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue] || this.defaultBackgroundColor;
+        },
+
+        getFontColor(backgroundColor) {
+            let color;
+            let r = parseInt(backgroundColor.substr(0, 2), 16);
+            let g = parseInt(backgroundColor.substr(2, 2), 16);
+            let b = parseInt(backgroundColor.substr(4, 2), 16);
+            let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            l < 0.5 ? color = '000' : color = 'fff';
+            return color;
         }
 
     });
