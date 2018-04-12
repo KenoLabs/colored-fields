@@ -3,16 +3,6 @@
         "color": {
             "view": "views/fields/varchar",
             "default": ""
-        },
-        "coloredEnum": {
-            "view": "views/fields/enum",
-            "isRequiredOptions": true,
-            "withoutRandomView": true
-        },
-        "coloredMultiEnum": {
-            "view": "views/fields/multi-enum",
-            "isRequiredOptions": true,
-            "withoutRandomView": true
         }
     }
 }

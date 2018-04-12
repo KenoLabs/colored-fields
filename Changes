@@ -1,2 +1,5 @@
+1.2.0  2018-04-12 17:02:49 Europe/Kiev
+    * UST #61843 : Переписать модуль "Colored Fields" для EspoCRM, чтобы использовать существующие типы поля "enum" и "multi-enum"  (Valeriy Shamota)
+
 1.1.0  2018-03-09 10:47:50 Europe/Kiev
     * FEA #60504 : Покрити модуль ліцензією та зробити його публічним (Roman Ratsun)

@@ -27,15 +27,18 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
 
         editTemplate: 'colored-fields:fields/colored-enum/edit',
 
+        defaultBackgroundColor: 'ccc',
+
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
             if (this.mode === 'edit') {
-                let that = this;
                 this.$el.find(`select[name="${this.name}"]`).on('change', function () {
-                    let color = (that.model.getFieldParam(that.name, 'optionColors') || {})[$(this).val()];
-                    $(this).css({background: `#${color}`});
-                });
+                    let backgroundColor = this.getBackgroundColor(this.$element.val());
+                    let color = this.getFontColor(backgroundColor);
+                    $(this).css({background: `#${backgroundColor}`});
+                    $(this).css({color: `#${color}`});
+                }.bind(this));
             }
         },
 
@@ -43,14 +46,31 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
             let data = Dep.prototype.data.call(this);
             let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
             data.options = (data.params.options || []).map(item => {
+                let backgroundColor = optionColors[item] || this.defaultBackgroundColor;
                 return {
                     selected: item === data.value,
-                    color: optionColors[item],
+                    backgroundColor: backgroundColor,
+                    color: this.getFontColor(backgroundColor),
                     value: item
                 };
             });
-            data.color = (this.model.getFieldParam(this.name, 'optionColors') || {})[data.value];
+            data.backgroundColor = this.getBackgroundColor(data.value);
+            data.color = this.getFontColor(data.backgroundColor);
             return data;
+        },
+
+        getBackgroundColor(fieldValue) {
+            return (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue] || this.defaultBackgroundColor;
+        },
+
+        getFontColor(backgroundColor) {
+            let color;
+            let r = parseInt(backgroundColor.substr(0, 2), 16);
+            let g = parseInt(backgroundColor.substr(2, 2), 16);
+            let b = parseInt(backgroundColor.substr(4, 2), 16);
+            let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            l < 0.5 ? color = '000' : color = 'fff';
+            return color;
         }
     });
 
