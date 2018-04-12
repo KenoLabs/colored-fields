@@ -1,7 +1,5 @@
 {
     "fieldTypes": {
-        "color": "Color",
-        "coloredEnum": "Colored Enum",
-        "coloredMultiEnum": "Colored Multi-Enum"
+        "color": "Color"
     }
 }
