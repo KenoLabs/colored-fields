@@ -25,7 +25,7 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
 
         detailTemplate: 'colored-fields:fields/colored-multi-enum/detail',
 
-        defaultBackgroundColor: 'ccc',
+        defaultBackgroundColor: 'CCCCCC',
 
         afterRender() {
             Dep.prototype.afterRender.call(this);

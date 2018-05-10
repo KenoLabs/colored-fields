@@ -27,7 +27,7 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
 
         editTemplate: 'colored-fields:fields/colored-enum/edit',
 
-        defaultBackgroundColor: 'ccc',
+        defaultBackgroundColor: 'CCCCCC',
 
         afterRender() {
             Dep.prototype.afterRender.call(this);
