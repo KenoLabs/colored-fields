@@ -1,3 +1,5 @@
+    * BUG #63170 : Изменить цвет текста для полей типа енум и мультиенум (Valeriy Shamota)
+
 1.2.0  2018-04-12 17:02:49 Europe/Kiev
     * UST #61843 : Переписать модуль "Colored Fields" для EspoCRM, чтобы использовать существующие типы поля "enum" и "multi-enum"  (Valeriy Shamota)
 
