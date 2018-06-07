@@ -36,8 +36,8 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
                 this.$el.find(`select[name="${this.name}"]`).on('change', function () {
                     let backgroundColor = this.getBackgroundColor(this.$element.val());
                     let color = this.getFontColor(backgroundColor);
-                    $(this).css({background: `#${backgroundColor}`});
-                    $(this).css({color: `#${color}`});
+                    this.$element.css({background: `#${backgroundColor}`});
+                    this.$element.css({color: `#${color}`});
                 }.bind(this));
             }
         },
