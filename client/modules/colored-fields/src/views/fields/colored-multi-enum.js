@@ -33,7 +33,24 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             if (this.mode === 'edit') {
                 this.setColors();
                 this.$element.on('change', this.setColors.bind(this));
+                this.$element[0].selectize.on('dropdown_open', this.setSelectizeColors.bind(this));
+                this.$element[0].selectize.on('change', this.setSelectizeColors.bind(this));
             }
+        },
+
+        setSelectizeColors() {
+            window.setTimeout(() => {
+                let values = this.$element[0].selectize.currentResults.items || [];
+                let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
+                values.forEach(item => {
+                    let backgroundColor = optionColors[item.id] || this.defaultBackgroundColor;
+                    let color = this.getFontColor(backgroundColor);
+                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value=${item.id}]`).css({
+                        'background': `#${backgroundColor}`,
+                        'color': `#${color}`
+                    });
+                });
+            }, 10);
         },
 
         setColors() {
