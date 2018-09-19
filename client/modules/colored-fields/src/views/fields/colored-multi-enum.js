@@ -72,7 +72,7 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             return {
                 backgroundColor: backgroundColor,
                 color: this.getFontColor(backgroundColor),
-                padding: (backgroundColor === 'inherit' && this.mode !== 'edit') ? '0' : '',
+                padding: (backgroundColor === 'inherit' && this.mode !== 'edit') ? '0' : '.09em .5em .2em',
                 fontSize: this.model.getFieldParam(this.name, 'fontSize') || '100%',
                 fontWeight: 'normal'
             };
