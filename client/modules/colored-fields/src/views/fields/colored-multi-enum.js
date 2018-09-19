@@ -25,8 +25,6 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
 
         detailTemplate: 'colored-fields:fields/colored-multi-enum/detail',
 
-        defaultBackgroundColor: 'CCCCCC',
-
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
@@ -41,58 +39,67 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
         setSelectizeColors() {
             window.setTimeout(() => {
                 let values = this.$element[0].selectize.currentResults.items || [];
-                let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
                 values.forEach(item => {
-                    let backgroundColor = optionColors[item.id] || this.defaultBackgroundColor;
-                    let color = this.getFontColor(backgroundColor);
-                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value=${item.id}]`).css({
-                        'background': `#${backgroundColor}`,
-                        'color': `#${color}`
-                    });
+                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value=${item.id}]`).css(this.getFieldStyles(item.id));
                 });
             }, 10);
+        },
+
+        data() {
+            let data = Dep.prototype.data.call(this);
+            data.selectedValues = (data.selected || []).map((item, index) => {
+                return _.extend({
+                    value: item,
+                    isEnd: index === data.selected.length - 1
+                }, this.getFieldStyles(item));
+            });
+            data = _.extend(this.getFieldStyles(data.value), data);
+            return data;
         },
 
         setColors() {
             let value = this.$element.val();
             let values = value.split(':,:');
             if (values.length) {
-                let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
                 values.forEach(item => {
-                    let backgroundColor = optionColors[item] || this.defaultBackgroundColor;
-                    let color = this.getFontColor(backgroundColor);
-                    this.$el.find(`[data-value='${item}']`).css({ 'background': `#${backgroundColor}`, 'color': `#${color}`});
+                    this.$el.find(`[data-value='${item}']`).css(this.getFieldStyles(item));
                 });
             }
         },
 
-        data() {
-            let data = Dep.prototype.data.call(this);
-            let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
-            data.selectedValues = (data.selected || []).map(item => {
-                let backgroundColor = optionColors[item] || this.defaultBackgroundColor;
-                return {
-                    backgroundColor: backgroundColor,
-                    color: this.getFontColor(backgroundColor),
-                    value: item
-                };
-            });
-            data.backgroundColor = this.getBackgroundColor(data.value);
-            data.color = this.getFontColor(data.backgroundColor);
-            return data;
+        getFieldStyles(fieldValue) {
+            let backgroundColor = this.getBackgroundColor(fieldValue);
+            return {
+                backgroundColor: backgroundColor,
+                color: this.getFontColor(backgroundColor),
+                padding: (backgroundColor === 'inherit' && this.mode !== 'edit') ? '0' : '',
+                fontSize: this.model.getFieldParam(this.name, 'fontSize') || '100%',
+                fontWeight: 'normal'
+            };
         },
 
+
+
         getBackgroundColor(fieldValue) {
-            return (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue] || this.defaultBackgroundColor;
+            let backgroundColor = (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue];
+            if (!backgroundColor) {
+                return 'inherit';
+            }
+            return '#' + backgroundColor
         },
 
         getFontColor(backgroundColor) {
             let color;
-            let r = parseInt(backgroundColor.substr(0, 2), 16);
-            let g = parseInt(backgroundColor.substr(2, 2), 16);
-            let b = parseInt(backgroundColor.substr(4, 2), 16);
-            let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
-            l < 0.5 ? color = '000' : color = 'fff';
+            if (backgroundColor === 'inherit') {
+                return '#8e8e8e';
+            } else if (backgroundColor) {
+                backgroundColor = backgroundColor.slice(1);
+                let r = parseInt(backgroundColor.substr(0, 2), 16);
+                let g = parseInt(backgroundColor.substr(2, 2), 16);
+                let b = parseInt(backgroundColor.substr(4, 2), 16);
+                let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                l < 0.5 ? color = '#000' : color = '#fff';
+            }
             return color;
         }
 

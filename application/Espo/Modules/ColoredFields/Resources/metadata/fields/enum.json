@@ -16,6 +16,11 @@
             "view": "views/admin/field-manager/fields/options/default"
         },
         {
+            "name": "fontSize",
+            "type": "varchar",
+            "default": "14px"
+        },
+        {
             "name": "isSorted",
             "type": "bool"
         },

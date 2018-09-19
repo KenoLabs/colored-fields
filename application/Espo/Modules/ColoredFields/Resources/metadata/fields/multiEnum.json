@@ -11,6 +11,11 @@
             "view": "colored-fields:views/admin/field-manager/fields/colored-options"
         },
         {
+            "name": "fontSize",
+            "type": "varchar",
+            "default": "14px"
+        },
+        {
             "name": "translation",
             "type": "varchar",
             "hidden": true

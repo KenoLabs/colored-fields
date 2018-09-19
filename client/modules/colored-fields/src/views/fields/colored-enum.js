@@ -21,55 +21,65 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
 
     return Dep.extend({
 
-        listTemplate: 'colored-fields:fields/colored-enum/list',
+        listTemplate: 'colored-fields:fields/colored-enum/detail',
 
-        detailTemplate: 'colored-fields:fields/colored-enum/list',
+        detailTemplate: 'colored-fields:fields/colored-enum/detail',
 
         editTemplate: 'colored-fields:fields/colored-enum/edit',
-
-        defaultBackgroundColor: 'CCCCCC',
 
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
             if (this.mode === 'edit') {
                 this.$el.find(`select[name="${this.name}"]`).on('change', function () {
-                    let backgroundColor = this.getBackgroundColor(this.$element.val());
-                    let color = this.getFontColor(backgroundColor);
-                    this.$element.css({background: `#${backgroundColor}`});
-                    this.$element.css({color: `#${color}`});
+                    this.$element.css(this.getFieldStyles(this.name));
                 }.bind(this));
             }
         },
 
         data() {
             let data = Dep.prototype.data.call(this);
-            let optionColors = this.model.getFieldParam(this.name, 'optionColors') || {};
             data.options = (data.params.options || []).map(item => {
-                let backgroundColor = optionColors[item] || this.defaultBackgroundColor;
-                return {
+                return _.extend({
                     selected: item === data.value,
-                    backgroundColor: backgroundColor,
-                    color: this.getFontColor(backgroundColor),
                     value: item
-                };
+                }, this.getFieldStyles(item));
             });
-            data.backgroundColor = this.getBackgroundColor(data.value);
-            data.color = this.getFontColor(data.backgroundColor);
+            data = _.extend(this.getFieldStyles(data.value), data);
             return data;
         },
 
+        getFieldStyles(fieldValue) {
+            let backgroundColor = this.getBackgroundColor(fieldValue);
+            return {
+                backgroundColor: backgroundColor,
+                color: this.getFontColor(backgroundColor),
+                padding: (backgroundColor === 'inherit' && this.mode !== 'edit') ? '0' : '',
+                fontSize: this.model.getFieldParam(this.name, 'fontSize') || '100%',
+                fontWeight: 'normal'
+            };
+        },
+
         getBackgroundColor(fieldValue) {
-            return (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue] || this.defaultBackgroundColor;
+            let backgroundColor = (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue];
+            if (!backgroundColor) {
+                return 'inherit';
+            }
+            return '#' + backgroundColor
         },
 
         getFontColor(backgroundColor) {
             let color;
-            let r = parseInt(backgroundColor.substr(0, 2), 16);
-            let g = parseInt(backgroundColor.substr(2, 2), 16);
-            let b = parseInt(backgroundColor.substr(4, 2), 16);
-            let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
-            l < 0.5 ? color = '000' : color = 'fff';
+            if (backgroundColor === 'inherit') {
+                return '#8e8e8e';
+            } else if (backgroundColor) {
+                backgroundColor = backgroundColor.slice(1);
+                let r = parseInt(backgroundColor.substr(0, 2), 16);
+                let g = parseInt(backgroundColor.substr(2, 2), 16);
+                let b = parseInt(backgroundColor.substr(4, 2), 16);
+                let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                l < 0.5 ? color = '#000' : color = '#fff';
+            }
             return color;
         }
     });
