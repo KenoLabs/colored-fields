@@ -25,6 +25,8 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
 
         detailTemplate: 'colored-fields:fields/colored-multi-enum/detail',
 
+        defaultBackgroundColor: 'ececec',
+
         afterRender() {
             Dep.prototype.afterRender.call(this);
 
@@ -47,10 +49,9 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
 
         data() {
             let data = Dep.prototype.data.call(this);
-            data.selectedValues = (data.selected || []).map((item, index) => {
+            data.selectedValues = (data.selected || []).map(item => {
                 return _.extend({
                     value: item,
-                    isEnd: index === data.selected.length - 1
                 }, this.getFieldStyles(item));
             });
             data = _.extend(this.getFieldStyles(data.value), data);
@@ -69,36 +70,30 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
 
         getFieldStyles(fieldValue) {
             let backgroundColor = this.getBackgroundColor(fieldValue);
+            let fontSize = this.model.getFieldParam(this.name, 'fontSize');
             return {
                 backgroundColor: backgroundColor,
                 color: this.getFontColor(backgroundColor),
-                padding: (backgroundColor === 'inherit' && this.mode !== 'edit') ? '0' : '.09em .5em .2em',
-                fontSize: this.model.getFieldParam(this.name, 'fontSize') || '100%',
+                fontSize: fontSize ? fontSize + 'em' : '100%',
                 fontWeight: 'normal'
             };
         },
 
-
-
         getBackgroundColor(fieldValue) {
-            let backgroundColor = (this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue];
-            if (!backgroundColor) {
-                return 'inherit';
-            }
-            return '#' + backgroundColor
+            return '#' + ((this.model.getFieldParam(this.name, 'optionColors') || {})[fieldValue] || this.defaultBackgroundColor);
         },
 
         getFontColor(backgroundColor) {
-            let color;
-            if (backgroundColor === 'inherit') {
-                return '#8e8e8e';
-            } else if (backgroundColor) {
+            let color = '#000';
+            if (backgroundColor) {
                 backgroundColor = backgroundColor.slice(1);
                 let r = parseInt(backgroundColor.substr(0, 2), 16);
                 let g = parseInt(backgroundColor.substr(2, 2), 16);
                 let b = parseInt(backgroundColor.substr(4, 2), 16);
                 let l = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b) / 255;
-                l < 0.5 ? color = '#000' : color = '#fff';
+                if (l >= 0.5) {
+                    color = '#fff';
+                }
             }
             return color;
         }

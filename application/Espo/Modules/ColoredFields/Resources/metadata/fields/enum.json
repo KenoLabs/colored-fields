@@ -17,8 +17,11 @@
         },
         {
             "name": "fontSize",
-            "type": "varchar",
-            "default": "14px"
+            "type": "float",
+            "min": 0.1,
+            "max": 3,
+            "default": 1,
+            "tooltip": true
         },
         {
             "name": "isSorted",
