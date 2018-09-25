@@ -16,6 +16,14 @@
             "view": "views/admin/field-manager/fields/options/default"
         },
         {
+            "name": "fontSize",
+            "type": "float",
+            "min": 0.1,
+            "max": 3,
+            "default": 1,
+            "tooltip": true
+        },
+        {
             "name": "isSorted",
             "type": "bool"
         },

@@ -1,5 +1,8 @@
 {
-    "fieldTypes": {
-        "color": "Color"
-    }
+  "fieldTypes": {
+    "color": "Color"
+  },
+  "fields": {
+    "fontSize": "Font-Size"
+  }
 }
