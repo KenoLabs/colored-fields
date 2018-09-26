@@ -34,7 +34,7 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
 
             if (this.mode === 'edit') {
                 this.$el.find(`select[name="${this.name}"]`).on('change', function () {
-                    this.$element.css(this.getFieldStyles(this.name));
+                    this.$element.css(this.getFieldStyles(this.$element.val()));
                 }.bind(this));
             }
         },
