@@ -1,8 +1,0 @@
-{
-    "defaultValueFields": {
-        "color": {
-            "view": "views/fields/varchar",
-            "default": ""
-        }
-    }
-}
