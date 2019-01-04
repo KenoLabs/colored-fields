@@ -54,12 +54,15 @@ Espo.define('colored-fields:views/fields/colored-enum', 'views/fields/enum', fun
         getFieldStyles(fieldValue) {
             let backgroundColor = this.getBackgroundColor(fieldValue);
             let fontSize = this.model.getFieldParam(this.name, 'fontSize');
-            return {
+            let data = {
                 backgroundColor: backgroundColor,
                 color: this.getFontColor(backgroundColor),
-                fontSize: fontSize ? fontSize + 'em' : '100%',
                 fontWeight: 'normal'
             };
+            if (this.mode !== 'edit') {
+                data.fontSize = fontSize ? fontSize + 'em' : '100%';
+            }
+            return data;
         },
 
         getBackgroundColor(fieldValue) {
