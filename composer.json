@@ -7,7 +7,7 @@
     }
   ],
   "require": {
-    "php": "^7.1"
+    "treo/treopim": "^1.0.0"
   },
   "extra": {
     "treoId": "ColoredFields",
