@@ -15,7 +15,7 @@
       "default": "Colored Fields"
     },
     "description": {
-      "default": "Module enables to define different background colored to values of Enum and Multi-Enum field type."
+      "default": "Module enables defining different background colors to values of Enum and Multi-Enum field type."
     }
   }
 }
