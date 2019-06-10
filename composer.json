@@ -9,6 +9,11 @@
   "require": {
     "treolabs/treocore": "~3.19.0"
   },
+  "autoload": {
+    "psr-4": {
+      "ColoredFields\\": "app/"
+    }
+  },
   "extra": {
     "treoId": "ColoredFields",
     "name": {
