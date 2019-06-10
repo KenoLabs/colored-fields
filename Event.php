@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * ColoredFields
  * Free Extension
  * Copyright (c) TreoLabs GmbH
@@ -17,23 +18,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-Espo.define('colored-fields:views/fields/color', ['views/fields/varchar', 'lib!jscolor'],
-    Dep => Dep.extend({
+declare(strict_types=1);
 
-        detailTemplate: 'fields/base/edit',
+namespace ColoredFields;
 
-        listTemplate: 'fields/base/edit',
+use Treo\Composer\AbstractEvent;
 
-        afterRender() {
-            Dep.prototype.afterRender.call(this);
-            let input = this.$el.find('input').get(0);
-            let picker = new jscolor(input);
+/**
+ * Class Event
+ *
+ * @author r.ratsun <r.ratsun@treolabs.com>
+ */
+class Event extends AbstractEvent
+{
+    /**
+     * @inheritdoc
+     */
+    public function afterInstall(): void
+    {
+    }
 
-            if (this.mode !== 'edit') {
-                input.readOnly = true;
-                picker.showOnClick = false;
-            }
-        }
-
-    })
-);
+    /**
+     * @inheritdoc
+     */
+    public function afterDelete(): void
+    {
+    }
+}
