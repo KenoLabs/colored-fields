@@ -3,11 +3,11 @@
   "authors": [
     {
       "name": "Roman Ratsun",
-      "email": "r.ratsun@zinitsolutions.com"
+      "email": "r.ratsun@treolabs.com"
     }
   ],
   "require": {
-    "treolabs/treocore": "~3.18.0"
+    "treolabs/treocore": "~3.19.0"
   },
   "extra": {
     "treoId": "ColoredFields",
