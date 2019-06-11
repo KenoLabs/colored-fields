@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace ColoredFields;
 
-use Treo\Core\AbstractModule;
+use Treo\Core\ModuleManager\AbstractModule;
 
 /**
  * Class Module
