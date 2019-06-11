@@ -16,11 +16,7 @@
   },
   "extra": {
     "treoId": "ColoredFields",
-    "name": {
-      "default": "Colored Fields"
-    },
-    "description": {
-      "default": "Module enables defining different background colors to values of Enum and Multi-Enum field type."
-    }
+    "name": "Colored Fields",
+    "description": "Module enables defining different background colors to values of Enum and Multi-Enum field type."
   }
 }
