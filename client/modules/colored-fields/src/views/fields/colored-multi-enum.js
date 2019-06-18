@@ -42,7 +42,7 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             window.setTimeout(() => {
                 let values = this.$element[0].selectize.currentResults.items || [];
                 values.forEach(item => {
-                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value=${item.id}]`).css(this.getFieldStyles(item.id));
+                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value='${item.id}']`).css(this.getFieldStyles(item.id));
                 });
             }, 10);
         },
