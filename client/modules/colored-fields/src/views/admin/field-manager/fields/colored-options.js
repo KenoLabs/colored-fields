@@ -45,6 +45,7 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
                 data.optionColors = {};
                 (data[this.name] || []).forEach(function (value) {
                     let valueSanitized = this.getHelper().stripTags(value).replace(/"/g, '&quot;');
+                    valueSanitized = valueSanitized.replace(/\\/g, '&bsol;');
 
                     data.optionColors[value] = this.$el.find('input[name="coloredValue"][data-value="' + valueSanitized + '"]').val().toString();
                 }, this);
@@ -60,7 +61,8 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
                 this.selected.push(value);
                 this.trigger('change');
 
-                var valueSanitized = this.getHelper().stripTags(value).replace(/"/g, '\\"');
+                var valueSanitized = this.getHelper().stripTags(value).replace(/\\/g, '\\\\');
+                valueSanitized = valueSanitized.replace(/"/g, '\\"');
                 this.$list.find('[data-value="' + valueSanitized + '"] [name="coloredValue"]').get().forEach(item => {
                     new jscolor(item)
                 });
@@ -72,20 +74,21 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
             var translatedValue = this.translatedOptions[value] || valueSanitized;
 
             var valueSanitized = valueSanitized.replace(/"/g, '&quot;');
+            valueSanitized = valueSanitized.replace(/\\/g, '&bsol;');
 
             let coloredValue = this.optionColors[value] || '333333';
 
             var html = '' +
-            '<div class="list-group-item link-with-role form-inline" data-value="' + valueSanitized + '">' +
+                '<div class="list-group-item link-with-role form-inline" data-value="' + valueSanitized + '">' +
                 '<div class="pull-left" style="width: 92%; display: inline-block;">' +
-                    '<input name="coloredValue" data-value="' + valueSanitized + '" class="role form-control input-sm pull-right" value="' + coloredValue + '">' +
-                    '<input name="translatedValue" data-value="' + valueSanitized + '" class="role form-control input-sm pull-right" value="' + translatedValue + '">' +
-                    '<div>' + valueSanitized + '</div>' +
+                '<input name="coloredValue" data-value="' + valueSanitized + '" class="role form-control input-sm pull-right" value="' + coloredValue + '">' +
+                '<input name="translatedValue" data-value="' + valueSanitized + '" class="role form-control input-sm pull-right" value="' + translatedValue + '">' +
+                '<div>' + valueSanitized + '</div>' +
                 '</div>' +
                 '<div style="width: 8%; display: inline-block; vertical-align: top;">' +
-                    '<a href="javascript:" class="pull-right" data-value="' + valueSanitized + '" data-action="removeValue"><span class="fas fa-times"></a>' +
+                '<a href="javascript:" class="pull-right" data-value="' + valueSanitized + '" data-action="removeValue"><span class="fas fa-times"></a>' +
                 '</div><br style="clear: both;" />' +
-            '</div>';
+                '</div>';
 
             return html;
         },
