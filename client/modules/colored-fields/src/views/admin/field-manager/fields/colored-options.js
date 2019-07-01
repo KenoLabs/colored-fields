@@ -22,6 +22,8 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
 
         optionColors: null,
 
+        defaultColor: '333333',
+
         setup() {
             Dep.prototype.setup.call(this);
 
@@ -44,10 +46,11 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
             if (data) {
                 data.optionColors = {};
                 (data[this.name] || []).forEach(function (value) {
-                    let valueSanitized = this.getHelper().stripTags(value).replace(/"/g, '&quot;');
-                    valueSanitized = valueSanitized.replace(/\\/g, '&bsol;');
+                    let valueSanitized = this.getHelper().stripTags(value);
+                    let valueInternal = valueSanitized.replace(/"/g, '-quote-').replace(/\\/g, '-backslash-');
 
-                    data.optionColors[value] = this.$el.find('input[name="coloredValue"][data-value="' + valueSanitized + '"]').val().toString();
+                    let coloredValue = this.$el.find('input[name="coloredValue"][data-value="' + valueInternal + '"]').val() || this.defaultColor;
+                    data.optionColors[value] = coloredValue.toString();
                 }, this);
             }
 
@@ -61,36 +64,34 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
                 this.selected.push(value);
                 this.trigger('change');
 
-                var valueSanitized = this.getHelper().stripTags(value).replace(/\\/g, '\\\\');
-                valueSanitized = valueSanitized.replace(/"/g, '\\"');
-                this.$list.find('[data-value="' + valueSanitized + '"] [name="coloredValue"]').get().forEach(item => {
+                let valueInternal = this.getHelper().stripTags(value).replace(/"/g, '-quote-').replace(/\\/g, '-backslash-');
+                this.$list.find('[data-value="' + valueInternal + '"] [name="coloredValue"]').get().forEach(item => {
                     new jscolor(item)
                 });
             }
         },
 
         getItemHtml: function (value) {
-            var valueSanitized = this.getHelper().stripTags(value);
-            var translatedValue = this.translatedOptions[value] || valueSanitized;
+            let valueSanitized = this.getHelper().stripTags(value);
+            let translatedValue = this.translatedOptions[value] || valueSanitized;
 
-            var valueSanitized = valueSanitized.replace(/"/g, '&quot;');
-            valueSanitized = valueSanitized.replace(/\\/g, '&bsol;');
+            translatedValue = translatedValue.replace(/"/g, '&quot;').replace(/\\/g, '&bsol;');
 
-            let coloredValue = this.optionColors[value] || '333333';
+            let valueInternal = valueSanitized.replace(/"/g, '-quote-').replace(/\\/g, '-backslash-');
+            let coloredValue = this.optionColors[value] || this.defaultColor;
 
-            var html = '' +
-                '<div class="list-group-item link-with-role form-inline" data-value="' + valueSanitized + '">' +
-                '<div class="pull-left" style="width: 92%; display: inline-block;">' +
-                '<input name="coloredValue" data-value="' + valueSanitized + '" class="role form-control input-sm pull-right" value="' + coloredValue + '">' +
-                '<input name="translatedValue" data-value="' + valueSanitized + '" class="role form-control input-sm pull-right" value="' + translatedValue + '">' +
-                '<div>' + valueSanitized + '</div>' +
-                '</div>' +
-                '<div style="width: 8%; display: inline-block; vertical-align: top;">' +
-                '<a href="javascript:" class="pull-right" data-value="' + valueSanitized + '" data-action="removeValue"><span class="fas fa-times"></a>' +
-                '</div><br style="clear: both;" />' +
-                '</div>';
-
-            return html;
+            return `
+                <div class="list-group-item link-with-role form-inline" data-value="${valueInternal}">
+                    <div class="pull-left" style="width: 92%; display: inline-block; margin-bottom: 2px;">
+                        <input name="coloredValue" data-value="${valueInternal}" class="role form-control input-sm pull-right" value="${coloredValue}">
+                        <input name="translatedValue" data-value="${valueInternal}" class="role form-control input-sm pull-right" value="${translatedValue}">
+                        <div>${translatedValue}</div>
+                    </div>
+                    <div style="width: 8%; display: inline-block;">
+                        <a href="javascript:" class="pull-right" data-value="${valueInternal}" data-action="removeValue"><span class="fas fa-times"></a>
+                    </div>
+                    <br style="clear: both;" />
+                </div>`;
         },
 
     });

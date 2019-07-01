@@ -42,7 +42,8 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             window.setTimeout(() => {
                 let values = this.$element[0].selectize.currentResults.items || [];
                 values.forEach(item => {
-                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value='${item.id}']`).css(this.getFieldStyles(item.id));
+                    let internalValue = item.id.replace(/-quote-/g, '"').replace(/-backslash-/g, '\\');
+                    this.$element[0].selectize.$dropdown_content.find(`.option[data-value='${item.id}']`).css(this.getFieldStyles(internalValue));
                 });
             }, 10);
         },
@@ -63,7 +64,8 @@ Espo.define('colored-fields:views/fields/colored-multi-enum', 'views/fields/mult
             let values = value.split(':,:');
             if (values.length) {
                 values.forEach(item => {
-                    this.$el.find(`[data-value='${item}']`).css(this.getFieldStyles(item));
+                    let internalValue = item.replace(/-quote-/g, '"').replace(/-backslash-/g, '\\');
+                    this.$el.find(`[data-value='${item}']`).css(this.getFieldStyles(internalValue));
                 });
             }
         },
