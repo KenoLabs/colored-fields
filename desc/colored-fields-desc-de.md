@@ -11,9 +11,9 @@ Wählen Sie im angezeigten Installations-Pop-up-Fenster die gewünschte Version 
 
 Bitte beachten Sie, dass nach dem Systemupdate alle Nutzer abgemeldet werden.
 
-Um das Modul „Colored Fields“ zu aktualisieren / zu entfernen, nutzen Sie die entsprechenden Optionen aus der Dropdown-Liste für einzelne Datensatzaktionen in `Administration > Modulmanager`.
+Um das Modul „Colored Fields“ zu aktualisieren / zu entfernen, nutzen Sie die entsprechenden Optionen aus der Menü für einzelne Datensatzaktionen in `Administration > Modulmanager`.
 
-*Beachten Sie, dass das Modul „Colored Fields“ zusammen mit [TreoPIM](https://treopim.com/help/what-is-treopim) installiert werden kann und PIM-abhängig ist. Also wenn PIM noch im System installiert ist, kann das Modul „Colored Fields“ nicht entfernt werden.*
+Beachten Sie, dass das Modul „Colored Fields“ zusammen mit [TreoPIM](https://treopim.com/help/what-is-treopim) installiert werden kann und PIM-abhängig ist. Also wenn PIM noch im System installiert ist, kann das Modul „Colored Fields“ nicht entfernt werden.
 
 ## Funktionen für den Administrator
 
