@@ -2,7 +2,7 @@
 
 The "Colored Fields" module enables a colorful highlight of `Enum`  and `Multi-Enum`  fields values in order to attract user's attention, i.e. after the module installation, the values of all `Enum` (when only one value is available for choosing from the list) / `Multi-Enum`(when several values are available for choosing from the list) fields get a color code that can be defined by the administrator.  
 
-Thanks to the "Colored Fields" module, the usability of the TreoPIM interface significantly improves and becomes even more user friendly. 
+Thanks to the "Colored Fields" module, the usability of the TreoCore (TreoPIM, TreoDAM, TreoCRM) interface significantly improves and becomes even more user friendly. 
 
 ## Installation Guide
 
@@ -14,9 +14,9 @@ Select the desired version in the installation pop-up window that appears and cl
 
 Please, note that running the system update will lead to the logout of all users.
 
-To update/remove the "Colored Fields" module from the system, use the corresponding options from its single record actions drop-down list in `Administration > Module Manager`.
+To update/remove the "Colored Fields" module from the system, use the corresponding options from its single record actions menu in `Administration > Module Manager`.
 
-*Please, note that the "Colored Fields" module can also be installed together with [TreoPIM](https://treopim.com/help/what-is-treopim) and it is PIM dependent, i.e. if PIM is still installed in the system, the "Colored Fields" module cannot be removed.*
+Please, note that the "Colored Fields" module can also be installed together with [TreoPIM](https://treopim.com/help/what-is-treopim) and it is PIM dependent, i.e. if PIM is still installed in the system, the "Colored Fields" module cannot be removed.
 
 ## Administrator Functions
 
