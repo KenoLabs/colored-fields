@@ -1,5 +1,3 @@
-﻿# Colored Fields
-
 The "Colored Fields" module enables a colorful highlight of `Enum`  and `Multi-Enum`  fields values in order to attract user's attention, i.e. after the module installation, the values of all `Enum` (when only one value is available for choosing from the list) / `Multi-Enum`(when several values are available for choosing from the list) fields get a color code that can be defined by the administrator.  
 
 Thanks to the "Colored Fields" module, the usability of the TreoCore (TreoPIM, TreoDAM, TreoCRM) interface significantly improves and becomes even more user friendly. 
