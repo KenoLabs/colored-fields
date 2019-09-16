@@ -78,7 +78,7 @@ Nachdem das Modul „Colored Fields“ vom Administrator installiert und konfigu
 
 In der Detailansicht der Entitäten werden die Hintergrundfarben wie folgt angezeigt:
 
-![Entity detail view](_asset/entity-detail-view.jpg)
+![Entity detail view](_assets/entity-detail-view.jpg)
 
 Die In-line-Bearbeitung ist auch für farbige `Enum` / `Multi-Enum`-Felder möglich (siehe unten).
 

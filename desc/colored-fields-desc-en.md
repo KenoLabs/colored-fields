@@ -1,4 +1,4 @@
-The "Colored Fields" module enables a colorful highlight of `Enum`  and `Multi-Enum`  fields values in order to attract user's attention, i.e. after the module installation, the values of all `Enum` (when only one value is available for choosing from the list) / `Multi-Enum`(when several values are available for choosing from the list) fields get a color code that can be defined by the administrator.  
+The "Colored Fields" module enables a colorful highlight of `Enum`  and `Multi-Enum` fields values in order to attract user's attention, i.e. after the module installation, the values of all `Enum` (when only one value is available for choosing from the list) / `Multi-Enum` (when several values are available for choosing from the list) fields get a color code that can be defined by the administrator.  
 
 Thanks to the "Colored Fields" module, the usability of the TreoCore (TreoPIM, TreoDAM, TreoCRM) interface significantly improves and becomes even more user friendly. 
 
@@ -66,7 +66,7 @@ Make necessary changes and click `Save` to apply your color and font configurati
 
 *Installing the "Colored Fields" module does not add any restrictions to the `Enum` / `Multi-Enum` fields in the Layout Manager, i.e. they can be used normally.*
 
-To display the newly created field(s), go to `Administration > Layout Manager` and click the desired entity in the list to unfold the list of layouts available for this entity. Click the layout you wish to configure (e.g. `List`) and enable the created  field by its drag-and-drop from the right column to the left:
+To display the newly created field(s), go to `Administration > Layout Manager` and click the desired entity in the list to unfold the list of layouts available for this entity. Click the layout you wish to configure (e.g. `List`) and enable the created field by its drag-and-drop from the right column to the left:
 
 ![Layout Manager](_assets/layout-mngr.jpg)
 
