@@ -85,7 +85,7 @@ Espo.define('colored-fields:views/admin/field-manager/fields/colored-options', [
                     <div class="pull-left" style="width: 92%; display: inline-block; margin-bottom: 2px;">
                         <input name="coloredValue" data-value="${valueInternal}" class="role form-control input-sm pull-right" value="${coloredValue}">
                         <input name="translatedValue" data-value="${valueInternal}" class="role form-control input-sm pull-right" value="${translatedValue}">
-                        <div>${translatedValue}</div>
+                        <div>${valueSanitized}</div>
                     </div>
                     <div style="width: 8%; display: inline-block;">
                         <a href="javascript:" class="pull-right" data-value="${valueInternal}" data-action="removeValue"><span class="fas fa-times"></a>
