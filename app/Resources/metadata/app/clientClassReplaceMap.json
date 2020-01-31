@@ -1,0 +1,6 @@
+{
+  "views/admin/field-manager/fields/options": [
+    "__APPEND__",
+    "colored-fields"
+  ]
+}
