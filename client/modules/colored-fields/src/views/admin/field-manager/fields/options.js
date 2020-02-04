@@ -46,15 +46,22 @@ Espo.define('colored-fields:views/admin/field-manager/fields/options', ['class-r
             if (data) {
                 data.optionColors = {};
                 (data[this.name] || []).forEach(function (value) {
-                    let valueSanitized = this.getHelper().stripTags(value);
-                    let valueInternal = valueSanitized.replace(/"/g, '-quote-').replace(/\\/g, '-backslash-');
-
-                    let coloredValue = this.$el.find('input[name="coloredValue"][data-value="' + valueInternal + '"]').val() || this.defaultColor;
-                    data.optionColors[value] = coloredValue.toString();
+                    data.optionColors[value] = this.getColoredOption(value, this.name);
                 }, this);
             }
 
             return data;
+        },
+
+        getColoredOption(value, pathName) {
+            pathName = pathName && typeof pathName === 'string' ? pathName : this.name;
+
+            let valueSanitized = this.getHelper().stripTags(value);
+            let valueInternal = valueSanitized.replace(/"/g, '-quote-').replace(/\\/g, '-backslash-');
+            let coloredValue = this.$el.find(`[data-name="${pathName}"] input[name="coloredValue"][data-value="${valueInternal}"]`).val()
+                || this.defaultColor;
+
+            return coloredValue.toString();
         },
 
         addValue(value) {
@@ -74,7 +81,7 @@ Espo.define('colored-fields:views/admin/field-manager/fields/options', ['class-r
         getTranslationContainer(value, valueInternal, translatedValue, valueSanitized) {
             const coloredValue = this.optionColors[value] || this.defaultColor;
             return `
-                <div class="pull-left" style="width: 92%; display: inline-block;">
+                <div class="pull-left" style="width: 92%; display: inline-block;" data-name="${this.name}">
                     <input name="coloredValue" data-value="${valueInternal}" class="role form-control input-sm pull-right" value="${coloredValue}">
                     <input name="translatedValue" data-value="${valueInternal}" class="role form-control input-sm pull-right" value="${translatedValue}">
                     <div class="main-option">${valueSanitized}</div>
